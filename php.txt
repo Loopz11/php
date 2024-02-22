@@ -1,0 +1,179 @@
+1. Creating Database 'CustomerDb' from PHP code:
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+//Creating connection
+$conn=mysqli_connect($servername,$username,$password);
+//check connection
+if($conn===false)
+{
+die("Error: Could not connect".mysqli_connect_error());
+}
+//Creating database
+$sql="CREATE DATABASE CustomerDB";
+if(mysqli_query($conn,$sql))
+{
+echo "Database created successfully";
+}
+else
+{
+echo "Error creating database:";
+}
+//Closing database connection
+mysqli_close($conn);
+?>
+2. Creating Table inside CustomerDb database
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname="CustomerDB";
+//Creating connection
+$conn=mysqli_connect($servername,$username,$password,$dbname);
+//check connection
+if($conn===false)
+{
+die("Error: Could not connect".mysqli_connect_error());
+}
+//Creating table inside CustomerDB database
+$sql="CREATE TABLE Customer (ID int, FirstName varchar(20), LastName varchar(30),
+Email varchar(15))";
+if(mysqli_query($conn,$sql))
+{
+echo "Table created successfully";
+}
+else
+{
+echo "Could not create table!";
+}
+//Closing database connection
+mysqli_close($conn);
+?>
+3. Inserting two records into Customer Table
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname="CustomerDB";
+//Creating connection
+$conn=mysqli_connect($servername,$username,$password,$dbname);
+//check connection
+if($conn===false)
+{
+die("Error: Could not connect".mysqli_connect_error());
+}
+//Inserting data into table Customer
+$sql="INSERT INTO Customer (ID, FirstName, LastName, Email) VALUES
+(1,'Ram','Sharma','ram@gmail.com'),(2,'Sita','Gurung','sita@gmail.com')";
+if(mysqli_query($conn,$sql))
+{
+echo "Records are inserted successfully";
+}
+else
+{
+echo "Could not insert records!";
+}
+//Closing database connection
+mysqli_close($conn);
+?>
+4. To select the Id, FirstName, LastName and Email from the Customer table and display
+on the page.
+/*Program to display records from database*/
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname="CustomerDB";
+//Creating connection
+$conn=mysqli_connect($servername,$username,$password,$dbname);
+//check connection
+if($conn===false)
+{
+die("Error: Could not connect".mysqli_connect_error());
+}
+//Selecting records from Customer table and displaying
+$sql="SELECT ID, FirstName, LastName, Email FROM Customer";
+$result=mysqli_query($conn,$sql);
+if (mysqli_num_rows($result)>0)
+{
+//output data of each row
+while ($row=mysqli_fetch_assoc($result))
+{
+echo $row["ID"]." ".$row["FirstName"]." ".$row["LastName"]." ".$row["Email"]."<br>";
+}
+}
+else
+{
+echo "0 results";
+}
+//Closing database connection
+mysqli_close ($conn);
+?>
+5. To select the Id, FirstName, LastName and Email columns from the Customer table
+where the LastName is "Sharma" and display on the page.
+<!--Program to display records from table on the basis of condition-->
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname="CustomerDB";
+//Creating connection
+$conn=mysqli_connect($servername,$username,$password,$dbname);
+//check connection
+if($conn===false)
+{
+die("Error: Could not connect".mysqli_connect_error());
+}
+//Selecting records from Customer table and displaying
+$sql="SELECT ID, FirstName, LastName, Email FROM Customer WHERE
+LastName='Sharma'";
+$result=mysqli_query($conn,$sql);
+if(mysqli_num_rows($result)>0)
+{
+//output data of each row
+while ($row=mysqli_fetch_assoc($result))
+{
+echo $row["ID"]." ".$row["FirstName"]." ".$row["LastName"]." ".$row["Email"]."<br>";
+}
+}
+else
+{
+echo "0 results";
+}
+//Closing database connection
+mysqli_close($conn);
+?>
+6. To select and display Id, FirstName, LastName and Email columns from the Customer
+table. The records will be ordered by the LastName column.
+<!--Program to display records where records are ordered by LastName-->
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname="CustomerDB";
+//Creating connection
+$conn=mysqli_connect($servername,$username,$password,$dbname);
+//check connection
+if($conn===false)
+{
+die("Error: Could not connect".mysqli_connect_error());
+}
+//Selecting records from Customer table and displaying
+$sql="SELECT ID, FirstName, LastName, Email FROM Customer ORDER BY LastName";
+$result=mysqli_query($conn,$sql);
+if(mysqli_num_rows($result)>0)
+{
+//output data of each row
+while ($row=mysqli_fetch_assoc($result))
+{
+echo $row["ID"]." ".$row["FirstName"]." ".$row["LastName"]." ".$row["Email"]."<br>";
+}
+}
+else
+{
+echo "0 results";
+}
+//Closing database connection
+mysqli_close($conn);
+?>
